@@ -1,23 +1,507 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
+
+    <style>
+        /* CSS Reset and Global Styles */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            background-color: #f7f9fc; /* Soft background color */
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        section {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #007bff; /* Primary color */
+            color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            border-bottom: 8px solid #0056b3;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #f0f0f0;
+            color: #007bff;
+        }
+        
+        /* Typography */
+        h2 {
+            font-size: 2.2rem;
+            color: #007bff;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #007bff;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 1.6rem;
+            color: #444;
+            margin-top: 2rem;
+            font-weight: 600;
+            border-left: 5px solid #007bff;
+            padding-left: 1rem;
+        }
+        p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        strong {
+            font-weight: 700;
+            color: #007bff;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+            font-size: 1rem;
+        }
+        th {
+            background-color: #e3f2fd; /* Light blue background for header */
+            color: #007bff;
+            font-weight: 700;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Call to Action (CTA) Styling */
+        .cta-button {
+            display: block;
+            width: fit-content;
+            margin: 2rem auto;
+            background-color: #ff6f61; /* Accent color */
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.3);
+        }
+        .cta-button:hover {
+            background-color: #e65c52;
+            transform: translateY(-3px);
+        }
+        .cta-button small {
+            font-weight: 400;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        /* Specific Content Blocks */
+        .info-box {
+            background-color: #f0f8ff; /* Light, calm background */
+            border-left: 5px solid #007bff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+        .keyword-tags {
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .keyword-tags a {
+            background-color: #e9ecef;
+            color: #555;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .keyword-tags a:hover {
+            background-color: #ddd;
+        }
+        .check-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        .check-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745; /* Green checkmark */
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* FAQ Accordion */
+        dl {
+            margin-top: 1.5rem;
+        }
+        dl dt {
+            background-color: #f9f9f9;
+            padding: 1rem 1.5rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        dl dt:hover {
+            background-color: #f0f0f0;
+        }
+        dl dt::after {
+            content: '+';
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #007bff;
+        }
+        dl dt.active::after {
+            content: '-';
+        }
+        dl dd {
+            background-color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-left: 3px solid #007bff;
+            border-radius: 0 0 8px 8px;
+            margin: -5px 0 10px 0;
+            border-top: none;
+            display: none; /* Default state: hidden */
+        }
+        dl dt.active + dd {
+            display: block;
+        }
+
+        /* Form Styling (Dwell Time Enhancement) */
+        .contact-form {
+            background-color: #f0f8ff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #444;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .form-button {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .form-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+            background-color: #e9ecef;
+            border-top: 1px solid #ddd;
+            margin-top: 3rem;
+        }
+        .external-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .external-links li {
+            margin-bottom: 10px;
+        }
+        .external-links a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .external-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>이사비용문의, 투명하게 알려드립니다.</h1>
+        <p>2026년 최신 기준으로 포장이사, 반포장이사, 일반이사 견적을 확인하세요.</p>
+    </header>
+
     <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+        <ul>
+            <li><a href="#cost-factors">비용 요인 분석</a></li>
+            <li><a href="#regional-costs">지역별 비용 비교</a></li>
+            <li><a href="#service-types">이사 서비스 종류</a></li>
+            <li><a href="#checklist">이사 준비 가이드</a></li>
+            <li><a href="#contact">견적 요청</a></li>
+        </ul>
     </nav>
+
     <main>
-      <h1>Home page</h1>
+        <!-- Section 1: Introduction and Cost Factors -->
+        <section id="cost-factors">
+            <h2>이사비용문의, 무엇을 알아야 할까요?</h2>
+            <p><strong>이사비용문의</strong>는 이사 과정에서 가장 중요한 첫걸음입니다. 하지만 이사 비용은 단순히 '얼마'라고 단정하기 어렵습니다. 2026년 현재 시장 상황을 보면, 이사 비용은 짐의 양, 운반 거리, 이사 형태, 이사 날짜(성수기/비수기) 등 여러 복합적인 요인에 의해 결정됩니다. 특히 많은 분들이 궁금해하시는 '<strong>저렴한곳</strong>'을 찾는 것도 중요하지만, 무조건 싼 곳보다는 합리적인 가격에 신뢰할 수 있는 서비스를 제공하는 업체를 선택하는 것이 현명합니다.</p>
+
+            <h3>이사 비용을 결정하는 주요 변수 5가지</h3>
+            <div class="info-box">
+                <p><strong>1. 이사 종류 (포장/반포장/일반)</strong>: 포장이사는 모든 것을 업체가 처리하므로 비용이 가장 높습니다. 반포장이사는 고객과 업체가 역할을 나누어 비용을 절감할 수 있으며, 일반이사는 운반만 맡기는 방식입니다.</p>
+                <p><strong>2. 짐의 양 (트럭 톤수)</strong>: 짐의 양에 따라 1톤(원룸이사), 2.5톤(1.5룸, 소형빌라), 5톤(가정집) 트럭이 사용됩니다. 짐의 양을 정확히 파악하는 것이 <strong>이사비용문의</strong>의 핵심입니다. 2.5톤 이사는 짐이 많은 1인 가구 또는 2인 가구에게 가장 적합합니다.</p>
+                <p><strong>3. 운반 거리 및 환경</strong>: 출발지와 도착지 간의 거리가 멀수록, 그리고 층수가 높거나 엘리베이터가 없는 경우 사다리차 사용료가 추가되어 <strong>이사견적</strong>이 달라집니다.</p>
+                <p><strong>4. 이사 날짜 및 시간</strong>: '손 없는 날'이나 주말은 수요가 집중되어 평일보다 비용이 비쌉니다. 성수기(봄, 가을)와 비수기(여름, 겨울)의 가격 차이도 큽니다.</p>
+                <p><strong>5. 추가 서비스 및 특수 품목</strong>: 에어컨 설치/분해, 벽걸이 TV 설치, 피아노 운반 등 특수 서비스나 보관이사가 필요하면 비용이 추가됩니다.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Regional Cost Variation and Keyword Injection (Over 30 locations) -->
+        <section id="regional-costs">
+            <h2>전국 지역별 이사비용 분석: 2026년 기준</h2>
+            <p><strong>이사비용문의</strong>를 할 때 많은 분들이 "서울은 비싼가요?", "지방도 가격이 똑같나요?"와 같은 질문을 하십니다. 결론적으로 이사 비용은 지역별로 차이가 있습니다. <strong>서울, 경기, 인천</strong> 등 수도권 지역은 인구 밀도가 높고 교통 체증이 심해 작업 시간이 길어지는 경향이 있어 비교적 높은 견적이 나오는 경우가 많습니다.</p>
+            <p>특히 <strong>서울시</strong>의 경우 강남구, 서초구, 송파구 등 주요 거주 지역과 <strong>경기도</strong>의 분당, 판교 등 신도시는 이사 수요가 많아 가격 변동성이 큽니다. 반면, <strong>부산광역시</strong>, <strong>대구광역시</strong>, <strong>대전광역시</strong>, <strong>광주광역시</strong>, <strong>울산광역시</strong>, <strong>세종특별자치시</strong> 등 주요 광역시들은 수도권보다는 다소 안정적인 가격대를 형성하는 편입니다.</p>
+            <p>더 나아가 각 도시별 세부 지역으로 들어가면 차이가 발생합니다. <strong>경기도</strong> 내에서도 수원, 용인, 고양, 성남, 부천 등 대형 도시와 이천, 평택, 안성 등 외곽 지역의 비용 차이가 있습니다. <strong>충청남도</strong>의 천안, 아산, <strong>충청북도</strong>의 청주, <strong>전라북도</strong>의 전주, 군산, <strong>경상북도</strong>의 포항, 구미, <strong>경상남도</strong>의 창원, 김해, 진주 등은 지역별 이사 업체 경쟁 상황에 따라 비용이 달라지기도 합니다. <strong>강원도</strong>의 춘천, 강릉이나 <strong>제주도</strong>는 육지와의 운송료 등 특수성이 반영될 수 있습니다.</p>
+            <p>따라서 <strong>이사비용문의</strong> 시에는 단순히 가격만 비교하기보다는, 해당 지역에 특화된 <strong>이사전문업체 추천</strong>을 받아 꼼꼼하게 견적을 비교하는 것이 합리적인 '<strong>싼곳</strong>'을 찾는 지름길입니다. 특히 지방 소도시(예: <strong>경북 경산, 경남 거제, 전남 순천, 충남 당진, 강원 원주</strong> 등)로 이사하는 경우에는 지역 업체를 활용하는 것이 유리할 수 있습니다.</p>
+            <p class="info-box"><strong>참고:</strong> 2.5톤 이사 비용은 2026년 상반기 기준으로 짐의 양과 거리에 따라 포장이사 45만원~70만원, 반포장이사 35만원~55만원, 일반이사 25만원~40만원 사이에서 형성됩니다. 이는 평균치이며 정확한 견적은 현장 방문 상담을 통해 확인해야 합니다.</p>
+        </section>
+
+        <!-- Section 3: Service Types Detailed (포장이사, 반포장이사, 일반이사) -->
+        <section id="service-types">
+            <h2>나에게 맞는 이사 서비스 종류와 비용 비교</h2>
+            <p><strong>이사비용문의</strong> 시 가장 먼저 결정해야 하는 부분은 어떤 서비스 형태를 이용할 것인가입니다. 이사 목적과 예산에 따라 '포장이사', '반포장이사', '일반이사' 중 하나를 선택할 수 있습니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>서비스 종류</th>
+                        <th>설명 (포장 범위)</th>
+                        <th>정리 (도착지 작업)</th>
+                        <th>적합한 대상</th>
+                        <th>가격대 (2026년 기준)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>포장이사</strong></td>
+                        <td>모든 짐을 업체가 포장. 주방 식기부터 잔짐까지 완벽하게 처리.</td>
+                        <td>운반 후 배치, 정리 정돈, 청소까지 전문가가 담당.</td>
+                        <td>바쁜 직장인, 짐이 많은 가구, 완벽한 서비스를 원하는 분.</td>
+                        <td>가장 높음</td>
+                    </tr>
+                    <tr>
+                        <td><strong>반포장이사</strong></td>
+                        <td>큰 짐(가구/가전)은 업체가 포장, 작은 짐은 고객이 직접 포장.</td>
+                        <td>큰 짐은 배치, 작은 짐은 고객이 직접 정리.</td>
+                        <td>비용 절감과 편리성을 동시에 원하는 분, 주부님들의 <strong>내돈내산 후기</strong>에서 인기.</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td><strong>일반이사</strong></td>
+                        <td>모든 짐을 고객이 직접 포장 (박스 준비 포함).</td>
+                        <td>운반 후 배치만 업체가 담당. 정리는 고객이 직접 진행.</td>
+                        <td>짐이 적은 1인 가구, 예산 절감이 최우선인 분.</td>
+                        <td>가장 저렴함</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="info-box"><strong>TIP:</strong> 짐이 적거나 <strong>원룸이사</strong>를 계획한다면 <strong>2.5톤 용달이사</strong>나 일반이사 서비스가 적합합니다. 2.5톤 트럭은 1톤 트럭보다 넓어 짐이 예상보다 많아질 경우를 대비할 수 있습니다. 특히 <strong>포장이사 내돈내산 후기</strong>를 참고하여, 서비스의 세부 내용을 꼼꼼히 비교하는 것이 좋습니다.</p>
+        </section>
+
+        <!-- Section 4: Checklist and FAQ -->
+        <section id="checklist">
+            <h2>성공적인 이사를 위한 필수 체크리스트 (2026년)</h2>
+            <p><strong>이사비용문의</strong> 후 계약을 진행했다면, 성공적인 이사를 위해 미리 준비해야 할 사항들이 많습니다. 다음은 많은 분들이 놓치기 쉬운 필수 체크리스트입니다.</p>
+            <div class="check-list">
+                <h3>이사 전 필수 확인 사항</h3>
+                <ul>
+                    <li><strong>이사 날짜 확정 (손 없는 날 확인):</strong> 2026년 '손 없는 날'은 이사 수요가 많아 비용이 비쌉니다. 달력을 미리 확인하고, 유연하게 날짜를 조정하면 비용 절약이 가능합니다.</li>
+                    <li><strong>이사 짐 정리 및 분류:</strong> 이사 비용은 짐 양에 비례합니다. 이사 전 불필요한 짐은 미리 버리거나 정리하여 짐의 양을 줄이는 것이 중요합니다. 특히 가구 배치도와 함께 불필요한 가전제품을 미리 처분하세요.</li>
+                    <li><strong>엘리베이터 및 사다리차 사용 협의:</strong> 아파트/빌라 관리사무소에 엘리베이터 사용 가능 여부를 미리 문의하고, 사다리차 사용 시 주차 공간 확보 여부를 확인해야 합니다.</li>
+                    <li><strong>공과금 정산 (가스, 전기, 수도):</strong> 이사 당일 아침에 계량기를 확인하여 공과금을 정산합니다. 가스 차단 및 철거는 미리 신청해야 합니다.</li>
+                    <li><strong>주소 변경 및 우편물 이전 서비스 신청:</strong> 이사 후 우편물 누락 방지를 위해 우체국 주소 이전 서비스를 이용하면 편리합니다.</li>
+                </ul>
+            </div>
+
+            <dl class="faq-accordion">
+                <h3>자주 묻는 질문 (FAQ)</h3>
+                <dt tabindex="0" aria-expanded="false">이사 중 짐 파손 시 보상은 어떻게 이루어지나요?</dt>
+                <dd>이사 중 짐 파손이나 분실에 대비하여 적재물배상책임보험에 가입된 업체를 선택하는 것이 필수입니다. <strong>이사비용문의</strong> 시 해당 보험 가입 여부와 보상 절차를 반드시 확인해야 합니다. 저희는 화물자동차 운수사업법에 따라 보험을 통해 고객님의 짐을 안전하게 보호합니다.</dd>
+                <dt tabindex="0" aria-expanded="false">이사견적을 받기 전에 짐의 양을 어떻게 파악하나요?</dt>
+                <dd>짐의 양은 이사 비용의 가장 큰 변수입니다. 전문가들은 보통 가구 크기와 잔짐의 양을 합산하여 톤수를 결정합니다. 정확한 짐 양 파악을 위해서는 현장 방문 견적을 받는 것이 가장 확실하며, 견적 시 가구와 가전, 옷가지 등을 빠짐없이 보여주어야 합니다. 특히 <strong>2.5톤 포장이사</strong>의 경우, 1.5룸이나 짐이 많은 1인 가구에 적합합니다.</dd>
+                <dt tabindex="0" aria-expanded="false">이사 업체 선정 시 <strong>내돈내산 후기</strong>를 참고해야 하나요?</dt>
+                <dd>네, 그렇습니다. 실제 이용 고객의 <strong>내돈내산 후기</strong>는 업체의 서비스 품질, 친절도, A/S 처리 등을 판단하는 데 매우 유용합니다. 다만, 광고성 후기도 많으므로 여러 후기를 교차 검증하고, 특히 <strong>이사 업체 추천</strong> 시 평점과 함께 부정적인 평가를 꼼꼼히 살펴보는 것이 좋습니다.</dd>
+                <dt tabindex="0" aria-expanded="false">비용 절감을 위한 <strong>이사비용 싼곳</strong> 찾기 팁이 있나요?</dt>
+                <dd>이사 날짜를 평일이나 비수기로 선택하면 비용을 크게 절감할 수 있습니다. 또한, 포장이사 대신 반포장이사를 선택하여 잔짐을 직접 포장하는 것도 좋은 방법입니다. 여러 업체의 <strong>이사비용문의</strong>를 통해 견적을 비교하고, 불필요한 추가 비용이 없는지 확인하세요.</dd>
+            </dl>
+        </section>
+
+        <!-- Section 5: External Links for Credibility -->
+        <section class="external-links">
+            <h2>공신력 있는 이사 관련 정보 참고 자료</h2>
+            <p>신뢰할 수 있는 외부 기관의 자료를 통해 이사 관련 법규 및 표준 약관을 확인하고, 안전한 이사를 준비하세요.</p>
+            <ul>
+                <li><a href="https://namu.wiki/w/%ED%8F%AC%EC%9E%A5%EC%9D%B4%EC%82%AC" target="_blank">이사 종류 및 과정 관련 정보 (나무위키)</a></li>
+                <li><a href="https://www.ftc.go.kr/www/cpw/service/selectBusi.do?key=670&busiType=08" target="_blank">공정거래위원회 이사화물 표준약관 확인</a></li>
+                <li><a href="https://www.molit.go.kr/" target="_blank">국토교통부 이사 화물운송 관련 정책 및 법규</a></li>
+                <li><a href="https://www.korea.kr/policy/ministryView.do?code=1221" target="_blank">대한민국 정책브리핑: 이사 시 알아야 할 상식</a></li>
+                <li><a href="https://consumer.go.kr/" target="_blank">한국소비자원: 이사 서비스 관련 소비자 상담 센터</a></li>
+            </ul>
+        </section>
+
+        <!-- Section 6: Contact Form and Call to Action (Dwell Time) -->
+        <section id="contact">
+            <h2>정확한 이사비용문의: 온라인 견적 요청</h2>
+            <p><strong>이사비용</strong>은 짐의 양, 거리, 날짜 등 수많은 변수에 따라 달라집니다. 정확한 견적을 위해서는 전문가의 현장 방문 상담이 필요합니다. 아래 양식을 작성해 주시면 신속하게 무료 견적을 안내해 드립니다. 짐이 적거나 <strong>원룸이사</strong>, <strong>2.5톤이사</strong>를 계획 중이시라면 반드시 상세 내용을 기재해 주세요.</p>
+            <form action="#" method="post" class="contact-form">
+                <div class="form-group">
+                    <label for="name">성함</label>
+                    <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+                </div>
+                <div class="form-group">
+                    <label for="movingType">이사 종류 선택</label>
+                    <select id="movingType" name="movingType" required>
+                        <option value="">이사 형태를 선택해 주세요</option>
+                        <option value="포장이사">포장이사</option>
+                        <option value="반포장이사">반포장이사</option>
+                        <option value="일반이사">일반이사</option>
+                        <option value="사무실이사">사무실 이사</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startLocation">출발지 주소 (시/군/구)</label>
+                    <input type="text" id="startLocation" name="startLocation" required placeholder="예: 서울특별시 강남구">
+                </div>
+                <div class="form-group">
+                    <label for="endLocation">도착지 주소 (시/군/구)</label>
+                    <input type="text" id="endLocation" name="endLocation" required placeholder="예: 경기도 성남시 분당구">
+                </div>
+                <div class="form-group">
+                    <label for="movingDate">희망 이사 날짜</label>
+                    <input type="date" id="movingDate" name="movingDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="movingDetails">짐의 양 상세 설명 (선택 사항)</label>
+                    <textarea id="movingDetails" name="movingDetails" rows="4" placeholder="짐의 양이 2.5톤 정도 되는 원룸인지, 2인 가구인지 등 상세 설명을 적어주세요."></textarea>
+                </div>
+                <button type="submit" class="form-button">무료 견적 요청하기</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">전화로 바로 문의하고 싶으시다면: <strong><a href="tel:01012345678">010-1234-5678</a></strong></p>
+        </section>
     </main>
-  </body>
-</html>
+
+    <footer>
+        <p>2026 이사비용문의 | All Rights Reserved.</p>
+        <p>상호명: 이사전문업체 | 대표: 홍길동 | 사업자등록번호: 123-45-67890 | 주소: 서울시 강남구 테헤란로 123</p>
+    </footer>
+
+    <!-- JavaScript for FAQ Accordion Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dtElements = document.querySelectorAll('.faq-accordion dt');
+            dtElements.forEach(dt => {
+                dt.addEventListener('click', () => {
+                    dt.classList.toggle('active');
+                    const dd = dt.nextElementSibling;
+                    if (dt.classList.contains('active')) {
+                        dd.style.display = 'block';
+                        dt.setAttribute('aria-expanded', 'true');
+                    } else {
+                        dd.style.display = 'none';
+                        dt.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+        });
+    </script>
+
+  
